@@ -51,6 +51,7 @@ public class Main extends Application {
 					default:
 						break;
 					}
+					controller.Reset();
 				}
 			});
 			primaryStage.setTitle("Fauno"); 

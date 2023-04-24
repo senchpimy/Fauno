@@ -62,12 +62,14 @@ public class InicioController {
 	}
 	
 	void JugadorUbi() {
+		gc = img.getGraphicsContext2D();
+        gc.setFill(Color.GREEN);
+        gc.fillOval(this.player.getX(), this.player.getY(), 25, 25);
+	}
+	public void Reset() {
 		if (this.player.Final()) {
 		this.NuevoLaberinto();	
 		this.player.Reset();
 		}
-		gc = img.getGraphicsContext2D();
-        gc.setFill(Color.GREEN);
-        gc.fillOval(this.player.getX(), this.player.getY(), 25, 25);
 	}
 }
