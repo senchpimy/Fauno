@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.canvas.Canvas?>
-
-<Pane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fes.aragon.controller.InicioController">
-            <Canvas fx:id="img" height="500.0" width="500.0" />
-</Pane>
