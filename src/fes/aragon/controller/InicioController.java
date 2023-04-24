@@ -20,13 +20,16 @@ public class InicioController {
 
     @FXML private void drawCanvas(int[][] matriz) {
     	gc = img.getGraphicsContext2D();
-        gc.setFill(Color.BLACK);
         
         for (int fila=0; fila<matriz.length;fila++)
         	for (int columna=0; columna<matriz[fila].length;columna++) {
-        		if (matriz[fila][columna]==1) {
         			int x=fila*25;
         			int y=columna*25;
+        		if (matriz[fila][columna]==1) {
+        			gc.setFill(Color.BLACK);
+        			gc.fillRect(x, y, 25, 25);
+        		}else {
+        			gc.setFill(Color.WHITE);
         			gc.fillRect(x, y, 25, 25);
         		}
         	}
@@ -42,23 +45,18 @@ public class InicioController {
 		this.laberinto.laberintoRandom();
 		int[][] matriz = this.laberinto.getMatriz();
 		this.drawCanvas(matriz);
-		this.JugadorUbi();
 	}
 	public void Arriba() {
 		this.player.Arriba();
-		this.JugadorUbi();
 	}
 	public void Abajo() {
 		this.player.Abajo();
-		this.JugadorUbi();
 	}
 	public void Izquierda() {
 		this.player.Izquierda();
-		this.JugadorUbi();
 	}
 	public void Derecha() {
 		this.player.Derecha();
-		this.JugadorUbi();
 	}
 	
 	void JugadorUbi() {
@@ -70,6 +68,9 @@ public class InicioController {
 		if (this.player.Final()) {
 		this.NuevoLaberinto();	
 		this.player.Reset();
-		}
+		}		
+		int[][] matriz = this.laberinto.getMatriz();
+		this.drawCanvas(matriz);
+		this.JugadorUbi();
 	}
 }

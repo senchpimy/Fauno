@@ -9,7 +9,6 @@ public class Laberinto {
 	private Random rand=new Random();
 	
 	public void laberintoRandom() {
-		this.rand = new Random();
 		this.nivelPasado();
 		for (int i = 0; i<filas;i++) {
 			for (int j = 0; j<filas;j++) {

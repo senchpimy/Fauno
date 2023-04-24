@@ -22,12 +22,12 @@ public class Jugador {
 		}
 	}
 	public void Derecha() {
-		if (X<500) {
+		if (X<470) {
 			X+=25;
 		}
 	}
 	public void Abajo() {
-		if (Y<480) {
+		if (Y<470) {
 			Y+=25;
 		}
 	}
@@ -37,7 +37,7 @@ public class Jugador {
 		}
 	}
 	public Boolean Final() {
-		return (X==500 && Y==250? true:false);
+		return (X>470 && Y==250? true:false);
 	}
 	
 	public void Reset() {
