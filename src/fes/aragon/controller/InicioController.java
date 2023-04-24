@@ -28,8 +28,11 @@ public class InicioController {
         		if (matriz[fila][columna]==1) {
         			gc.setFill(Color.BLACK);
         			gc.fillRect(x, y, 25, 25);
-        		}else {
+        		}else if (matriz[fila][columna]==0) {
         			gc.setFill(Color.WHITE);
+        			gc.fillRect(x, y, 25, 25);
+        		}else {
+        			gc.setFill(Color.RED);
         			gc.fillRect(x, y, 25, 25);
         		}
         	}

@@ -10,11 +10,17 @@ public class Laberinto {
 	
 	public void laberintoRandom() {
 		this.nivelPasado();
-		for (int i = 0; i<filas;i++) {
-			for (int j = 0; j<filas;j++) {
+		for (int i = 0; i<filas;i++) 
+			for (int j = 0; j<filas;j++) 
 				this.matriz[i][j]=(rand.nextFloat() > 0.8? 1:0);
+
+		for (int i = 5; i<filas-5;i++) 
+			for (int j = 5; j<columnas-5;j++) {
+				matriz[0][j]=0;
+				matriz[19][j]=0;
 			}
-		}
+		matriz[0][10]=2;
+		matriz[19][10]=2;
 	}
 	
 	public void matrizEstado() {
