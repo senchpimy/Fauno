@@ -12,6 +12,7 @@ import fes.aragon.modulo.*;
 
 public class InicioController {
 	Laberinto laberinto = new Laberinto();
+	Jugador player = new Jugador();
 
     @FXML private Canvas img ;
     private GraphicsContext gc ;
@@ -21,14 +22,12 @@ public class InicioController {
     	gc = img.getGraphicsContext2D();
         gc.setFill(Color.BLACK);
         
-        System.out.println("color set to black");
         for (int fila=0; fila<matriz.length;fila++)
         	for (int columna=0; columna<matriz[fila].length;columna++) {
         		if (matriz[fila][columna]==1) {
-        			int x=fila*15;
-        			int y=columna*15;
-        			gc.fillRect(x, y, 15, 15);
-        			System.out.println("Cuadrado: "+x+y);
+        			int x=fila*25;
+        			int y=columna*25;
+        			gc.fillRect(x, y, 25, 25);
         		}
         	}
     }
@@ -37,20 +36,28 @@ public class InicioController {
 		this.laberinto.laberintoRandom();
 		int[][] matriz = this.laberinto.getMatriz();
 		this.drawCanvas(matriz);
+		this.JugadorUbi();
 	}
 	public void Arriba() {
-		//this.drawCanvas();
-		System.out.println("Arriba");
+		this.player.Arriba();
+		this.JugadorUbi();
 	}
 	public void Abajo() {
-		System.out.println("Abajo");
+		this.player.Abajo();
+		this.JugadorUbi();
 	}
 	public void Izquierda() {
-		System.out.println("Izquierda");
+		this.player.Izquierda();
+		this.JugadorUbi();
 	}
 	public void Derecha() {
-		System.out.println("Derecha");
+		this.player.Derecha();
+		this.JugadorUbi();
 	}
-	public void Otracosa() {
+	
+	void JugadorUbi() {
+		gc = img.getGraphicsContext2D();
+        gc.setFill(Color.GREEN);
+        gc.fillOval(this.player.getX(), this.player.getY(), 25, 25);
 	}
 }

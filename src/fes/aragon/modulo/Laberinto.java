@@ -11,7 +11,7 @@ public class Laberinto {
 	public void laberintoRandom() {
 		for (int i = 0; i<filas;i++) {
 			for (int j = 0; j<filas;j++) {
-				this.matriz[i][j]=(rand.nextFloat() > 0.7? 1:0);
+				this.matriz[i][j]=(rand.nextFloat() > 0.8? 1:0);
 			}
 		}
 	}
