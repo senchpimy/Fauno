@@ -45,4 +45,12 @@ public class Laberinto {
 	public void setNiveles(int niveles) {
 		this.niveles = niveles;
 	}
+	
+	public Boolean HabilitarMovimiento(int x,int y) {
+			System.out.println(x/25);
+		if (matriz[x/25][y/25]!=1) {
+			return true;
+		}
+		return false;
+	}
 }

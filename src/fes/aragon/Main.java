@@ -9,24 +9,19 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.fxml.FXMLLoader;
 
-import java.lang.ModuleLayer.Controller;
-import java.util.HashSet;
-
 import fes.aragon.controller.InicioController;
+import fes.aragon.modulo.*;
 
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Text text = new Text("Hola");      
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Inicio.fxml"));
 			Pane root = loader.load();
-            root.getChildren().add(text);
 
-            InicioController controller = loader.getController();
+           InicioController controller = loader.getController();
 
 			Scene scene = new Scene(root);
-			//InicioController controller = loader.getController();
 			scene.getStylesheets().add(getClass().getResource("css/application.css").toExternalForm());
 			scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 				@Override

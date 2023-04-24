@@ -1,14 +1,11 @@
 package fes.aragon.controller;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
-import javafx.scene.control.ComboBox;
 
 import fes.aragon.modulo.*;
+import fes.aragon.modulo.Jugador;
 
 public class InicioController {
 	Laberinto laberinto = new Laberinto();
@@ -50,15 +47,19 @@ public class InicioController {
 		this.drawCanvas(matriz);
 	}
 	public void Arriba() {
+		if (laberinto.HabilitarMovimiento(player.getX(), player.getY()-25))
 		this.player.Arriba();
 	}
 	public void Abajo() {
+		if (laberinto.HabilitarMovimiento(player.getX(), player.getY()+25))
 		this.player.Abajo();
 	}
 	public void Izquierda() {
+		if (laberinto.HabilitarMovimiento(player.getX()-25, player.getY()))
 		this.player.Izquierda();
 	}
 	public void Derecha() {
+		if (laberinto.HabilitarMovimiento(player.getX()+25, player.getY()))
 		this.player.Derecha();
 	}
 	
