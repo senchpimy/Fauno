@@ -3,6 +3,7 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+//import java.util.concurrent.TimeUnit;
 
 import fes.aragon.modulo.*;
 import fes.aragon.modulo.Jugador;
@@ -47,20 +48,36 @@ public class InicioController {
 		this.drawCanvas(matriz);
 	}
 	public void Arriba() {
-		if (laberinto.HabilitarMovimiento(player.getX(), player.getY()-25))
+		if (laberinto.HabilitarMovimiento(player.getX(), player.getY()-25)) {
+		gc = img.getGraphicsContext2D();
+        gc.setFill(Color.WHITE);
+        gc.fillRect(this.player.getX(), this.player.getY(), 25, 25);
 		this.player.Arriba();
+		}
 	}
 	public void Abajo() {
-		if (laberinto.HabilitarMovimiento(player.getX(), player.getY()+25))
+		if (laberinto.HabilitarMovimiento(player.getX(), player.getY()+25)) {
+		gc = img.getGraphicsContext2D();
+        gc.setFill(Color.WHITE);
+        gc.fillRect(this.player.getX(), this.player.getY(), 25, 25);
 		this.player.Abajo();
+		}
 	}
 	public void Izquierda() {
-		if (laberinto.HabilitarMovimiento(player.getX()-25, player.getY()))
+		if (laberinto.HabilitarMovimiento(player.getX()-25, player.getY())) {
+		gc = img.getGraphicsContext2D();
+        gc.setFill(Color.WHITE);
+        gc.fillRect(this.player.getX(), this.player.getY(), 25, 25);
 		this.player.Izquierda();
+		}
 	}
 	public void Derecha() {
-		if (laberinto.HabilitarMovimiento(player.getX()+25, player.getY()))
+		if (laberinto.HabilitarMovimiento(player.getX()+25, player.getY())) {
+		gc = img.getGraphicsContext2D();
+        gc.setFill(Color.WHITE);
+        gc.fillRect(this.player.getX(), this.player.getY(), 25, 25);
 		this.player.Derecha();
+		}
 	}
 	
 	void JugadorUbi() {
@@ -74,7 +91,6 @@ public class InicioController {
 		this.player.Reset();
 		}		
 		int[][] matriz = this.laberinto.getMatriz();
-		this.drawCanvas(matriz);
 		this.JugadorUbi();
 	}
 }

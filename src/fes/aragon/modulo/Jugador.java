@@ -22,7 +22,7 @@ public class Jugador {
 		}
 	}
 	public void Derecha() {
-		if (X<470) {
+		if (X<455) {
 			X+=25;
 		}
 	}
