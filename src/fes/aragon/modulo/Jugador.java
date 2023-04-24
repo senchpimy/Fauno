@@ -18,22 +18,30 @@ public class Jugador {
 	}
 	public void Izquierda() {
 		if (X>0) {
-			X-=10;
+			X-=25;
 		}
 	}
 	public void Derecha() {
 		if (X<500) {
-			X+=10;
+			X+=25;
 		}
 	}
 	public void Abajo() {
 		if (Y<480) {
-			Y+=10;
+			Y+=25;
 		}
 	}
 	public void Arriba() {
 		if (Y>0) {
-			Y-=10;
+			Y-=25;
 		}
+	}
+	public Boolean Final() {
+		return (X==500 && Y==250? true:false);
+	}
+	
+	public void Reset() {
+		X=0;
+		Y=250;
 	}
 }

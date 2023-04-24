@@ -38,6 +38,12 @@ public class InicioController {
 		this.drawCanvas(matriz);
 		this.JugadorUbi();
 	}
+	void NuevoLaberinto() {
+		this.laberinto.laberintoRandom();
+		int[][] matriz = this.laberinto.getMatriz();
+		this.drawCanvas(matriz);
+		this.JugadorUbi();
+	}
 	public void Arriba() {
 		this.player.Arriba();
 		this.JugadorUbi();
@@ -56,6 +62,10 @@ public class InicioController {
 	}
 	
 	void JugadorUbi() {
+		if (this.player.Final()) {
+		this.NuevoLaberinto();	
+		this.player.Reset();
+		}
 		gc = img.getGraphicsContext2D();
         gc.setFill(Color.GREEN);
         gc.fillOval(this.player.getX(), this.player.getY(), 25, 25);
