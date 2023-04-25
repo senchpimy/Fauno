@@ -6,7 +6,7 @@ public class Jugador {
 	
 	public Jugador(){
 		X=0;
-		Y=250;
+		Y=300;
 	}
 	
 	public int getX() {
@@ -18,30 +18,30 @@ public class Jugador {
 	}
 	public void Izquierda() {
 		if (X>0) {
-			X-=25;
+			X-=20;
 		}
 	}
 	public void Derecha() {
-		if (X<455) {
-			X+=25;
+		if (X<570) {
+			X+=20;
 		}
 	}
 	public void Abajo() {
-		if (Y<470) {
-			Y+=25;
+		if (Y<570) {
+			Y+=20;
 		}
 	}
 	public void Arriba() {
 		if (Y>0) {
-			Y-=25;
+			Y-=20;
 		}
 	}
 	public Boolean Final() {
-		return (X>470 && Y==250? true:false);
+		return (X>570 && Y==300? true:false);
 	}
 	
 	public void Reset() {
 		X=0;
-		Y=250;
+		Y=300;
 	}
 }

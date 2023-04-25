@@ -10,9 +10,10 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class Laberinto {
-	private int filas = 20;
-	private int columnas = 20;
+	private int filas = 30;
+	private int columnas = 30;
 	private int niveles = 0;
+	private int pixel=600/30;
 	private int[][] matriz = new int[this.filas][this.columnas];
 	private Random rand = new Random();
 
@@ -26,10 +27,10 @@ public class Laberinto {
 			for (int i = 5; i < filas - 5; i++)
 				for (int j = 5; j < columnas - 5; j++) {
 					matriz[0][j] = 0;
-					matriz[19][j] = 0;
+					matriz[this.filas-1][j] = 0;
 				}
-			matriz[0][10] = 2;
-			matriz[19][10] = 2;
+			matriz[0][this.columnas/2] = 2;
+			matriz[this.filas-1][this.columnas/2] = 2;
 //		} else {
 //			this.resetMatriz(0);
 //			this.laberintoDivision(0, 0, 19, 19);
@@ -38,9 +39,6 @@ public class Laberinto {
 //		}
 	}
 
-	/**
-	 * 
-	 */
 //	void laberintoDivision(int x, int y, int numCols, int numFil) {
 //		if (numCols < 2 || numFil < 2)
 //			return;
@@ -138,7 +136,7 @@ public class Laberinto {
 	public Boolean HabilitarMovimiento(int x, int y) {
 		int valor;
 		try {
-			valor =matriz[x / 25][y / 25] ;
+			valor =matriz[x / pixel][y / pixel] ;
 		}catch(Exception e){
 			valor=1;
 		}

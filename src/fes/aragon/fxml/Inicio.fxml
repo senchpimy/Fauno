@@ -3,5 +3,6 @@
 <?import javafx.scene.canvas.Canvas?>
 
 <Pane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fes.aragon.controller.InicioController">
-            <Canvas fx:id="img" height="500.0" width="500.0" />
+            <Canvas fx:id="img" height="600.0" width="600.0" />
+            <Canvas fx:id="sombra" height="600.0" width="600.0" />
 </Pane>
