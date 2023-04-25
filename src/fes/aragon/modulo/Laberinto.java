@@ -18,11 +18,16 @@ public class Laberinto {
 	private Random rand = new Random();
 
 	public void laberintoRandom() {
-		if (rand.nextInt(2) == 0) {
+		//int escojerNivel=rand.nextInt(2);
+		Boolean escojerNivel=rand.nextBoolean();
+		float poblacion = rand.nextFloat();
+		while (poblacion <0.5 || poblacion>0.8)
+			poblacion = rand.nextFloat();
+		if (escojerNivel) {
 			this.nivelPasado();
 			for (int i = 0; i < filas; i++)
 				for (int j = 0; j < filas; j++)
-					this.matriz[i][j] = (rand.nextFloat() > 0.8 ? 1 : 0);
+					this.matriz[i][j] = (rand.nextFloat() > poblacion ? 1 : 0);
 
 			for (int i = 5; i < filas - 5; i++)
 				for (int j = 5; j < columnas - 5; j++) {
@@ -33,8 +38,11 @@ public class Laberinto {
 			matriz[this.filas-1][this.columnas/2] = 2;
 		} else {
 			this.resetMatriz(1);
-			generateTunels(3);
-			//this.mazeDivision(0, 0, 19, 19);
+			if (rand.nextBoolean()) {
+				generateTunels(rand.nextInt(2,6));
+			}else {
+				generateTunelsDif(rand.nextInt(2,6));
+			}
 			matriz[0][15] = 2;
 			matriz[29][15] = 2;
 		}
@@ -60,9 +68,9 @@ public class Laberinto {
 		int dx=(horizontal?1:0);
 		int dy=(horizontal?0:1);
 		
-		int distancia = (horizontal?numCols:numRow);
+		//int distancia = (horizontal?numCols:numRow);
 		
-		int dir = (horizontal? 1:2);
+		//int dir = (horizontal? 1:2);
 		for (int i =0; i<numCols;i++) {
 		        if (wx!=px || wy!=py)
 		      	  matriz[wy][wx]=1;
@@ -112,6 +120,39 @@ public class Laberinto {
 	        tunel(prev_fila,prev_col,fila,columna);
 	        prev_fila=fila;
 	        prev_col=columna;
+		}
+	       tunel(prev_fila,prev_col,29,16);
+	       tunel(prev_fila,prev_col,29,15);
+	}
+
+	public void generateTunelsDif(int num) {
+		int prev_fila=0;
+		int prev_col=15;
+		int [][] cuadrantes=new int[][] {{0,0,15,15},{0,15,15,29}
+										,{15,0,29,15},{15,15,30,30}};
+		int index_cuadrantes=rand.nextInt(4);//Verficar out of range
+		int menor_columna=cuadrantes[index_cuadrantes][0];
+		int menor_fila=cuadrantes[index_cuadrantes][1];
+		int mayor_fila=cuadrantes[index_cuadrantes][2];
+		int mayor_columna=cuadrantes[index_cuadrantes][3];
+		for (int i=0;i<num;i++) {
+			int max = Math.max(mayor_fila,menor_fila);
+			int men = Math.min(mayor_fila,menor_fila);
+			if (max==men) {men=0;max=29;}
+			int max2 = Math.max(mayor_columna,menor_columna);
+			int men2 = Math.min(mayor_columna,menor_columna);
+			if (max2==men2) {men2=0;max2=29;}
+
+	        int fila=rand.nextInt(men,max);
+	        int columna=rand.nextInt(men2,max2);
+	        tunel(prev_fila,prev_col,fila,columna);
+	        prev_fila=fila;
+	        prev_col=columna;
+	        index_cuadrantes++;
+	        int index_cuadrantes_next=rand.nextInt(4);//Verficar out of range
+	        while (index_cuadrantes==index_cuadrantes_next) 
+	        	index_cuadrantes_next=rand.nextInt(4);//Verficar out of range
+	        index_cuadrantes=index_cuadrantes_next;
 		}
 	       tunel(prev_fila,prev_col,29,16);
 	       tunel(prev_fila,prev_col,29,15);

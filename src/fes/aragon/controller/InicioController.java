@@ -1,10 +1,12 @@
 package fes.aragon.controller;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 //import java.util.concurrent.TimeUnit;
-
+import javafx.util.Duration;
 import fes.aragon.modulo.*;
 import fes.aragon.modulo.Jugador;
 
@@ -115,7 +117,6 @@ public class InicioController {
 		this.NuevoLaberinto();	
 		this.player.Reset();
 		}		
-		int[][] matriz = this.laberinto.getMatriz();
 		this.JugadorUbi();
 	}
 }
