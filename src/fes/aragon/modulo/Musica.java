@@ -7,7 +7,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 public class Musica extends Thread{
-
 	String cancion = "media/bug.mp3";
 	public void run() {
 	Media hit = new Media(new File(cancion).toURI().toString());

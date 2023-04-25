@@ -7,9 +7,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import java.io.File;
 
-public class Jugador {
-	private int X;
-	private int Y;
+public class Jugador extends Creatura{
+
     @FXML 
     private Image Frente=new Image(new File("media/frente.png").toURI().toString());
 
@@ -23,6 +22,7 @@ public class Jugador {
     private Image Derecha=new Image(new File("media/der.png").toURI().toString());
 	
 	public Jugador() {
+		super();
 		X=0;
 		Y=300;
 	}
@@ -38,26 +38,7 @@ public class Jugador {
 	public int getY() {
 		return Y;
 	}
-	public void Izquierda() {
-		if (X>0) {
-			X-=20;
-		}
-	}
-	public void Derecha() {
-		if (X<570) {
-			X+=20;
-		}
-	}
-	public void Abajo() {
-		if (Y<570) {
-			Y+=20;
-		}
-	}
-	public void Arriba() {
-		if (Y>0) {
-			Y-=20;
-		}
-	}
+
 	public Boolean Final() {
 		return (X>570 && Y==300? true:false);
 	}
@@ -85,7 +66,6 @@ public class Jugador {
 		Izquierda();
 		img=Izquierda;
         }
-        //gc.setFill(Color.GREEN);
         gc.drawImage(img,X, Y, pixel, pixel);
 	}
 }
