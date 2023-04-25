@@ -5,7 +5,6 @@ import java.io.File;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaPlayer.Status;;
 
 public class Musica extends Thread{
 
@@ -15,6 +14,5 @@ public class Musica extends Thread{
 	MediaPlayer mediaPlayer = new MediaPlayer(hit);
 	mediaPlayer.setCycleCount(Integer.MAX_VALUE);
 	mediaPlayer.play();
-		}
 	}
 }

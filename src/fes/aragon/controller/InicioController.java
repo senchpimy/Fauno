@@ -24,8 +24,8 @@ public class InicioController {
     @FXML 
     private Canvas sombra;
 
-    @FXML 
-    private ImageView TituloImage;
+    //@FXML 
+    //private ImageView TituloImage;
 
     private GraphicsContext gc ;
     
@@ -52,11 +52,11 @@ public class InicioController {
     }
 	@FXML
 	public void initialize() {
-		TranslateTransition translate = new TranslateTransition();
-		translate.setNode(TituloImage);
-		translate.setDuration(Duration.millis(1000));
-		translate.setByY(200);
-		translate.play();
+		//TranslateTransition translate = new TranslateTransition();
+		//translate.setNode(TituloImage);
+		//translate.setDuration(Duration.millis(1000));
+		//translate.setByY(200);
+		//translate.play();
 		Empezar();
 	}
 	@FXML
@@ -64,14 +64,13 @@ public class InicioController {
 		this.laberinto.laberintoRandom();
 		int[][] matriz = this.laberinto.getMatriz();
 		this.drawCanvas(matriz);
-		this.JugadorUbi();
-		gc = sombra.getGraphicsContext2D();
+		this.player.Empezar(player_c.getGraphicsContext2D(),pixel);
+		//gc = sombra.getGraphicsContext2D();
 		gc = fondo.getGraphicsContext2D();
         gc.setFill(Color.BLUE);
         gc.fillRect(0, 0, 600, 600);
-        //gc.setFill(null);
-        //gc.fillOval(0, 0, pixel0, pixel0);
 	}
+
 	void NuevoLaberinto() {
 		this.laberinto.laberintoRandom();
 		int[][] matriz = this.laberinto.getMatriz();
@@ -80,43 +79,33 @@ public class InicioController {
 	public void Arriba() {
 		if (laberinto.HabilitarMovimiento(player.getX(), player.getY()-pixel)) {
 		gc = player_c.getGraphicsContext2D();
-        gc.setFill(Color.WHITE);
-        gc.clearRect(this.player.getX(), this.player.getY(), pixel, pixel);
-		this.player.Arriba();
+		this.player.Mover(gc,Movimiento.ARRIBA,pixel);
 		}
 	}
 	public void Abajo() {
 		if (laberinto.HabilitarMovimiento(player.getX(), player.getY()+pixel)) {
 		gc = player_c.getGraphicsContext2D();
-        gc.clearRect(this.player.getX(), this.player.getY(), pixel, pixel);
-		this.player.Abajo();
+		this.player.Mover(gc,Movimiento.ABAJO,pixel);
 		}
 	}
 	public void Izquierda() {
 		if (laberinto.HabilitarMovimiento(player.getX()-pixel, player.getY())) {
 		gc = player_c.getGraphicsContext2D();
-        gc.clearRect(this.player.getX(), this.player.getY(), pixel, pixel);
-		this.player.Izquierda();
+		this.player.Mover(gc,Movimiento.IZQUIERDA,pixel);
 		}
 	}
 	public void Derecha() {
 		if (laberinto.HabilitarMovimiento(player.getX()+pixel, player.getY())) {
 		gc = player_c.getGraphicsContext2D();
-        gc.clearRect(this.player.getX(), this.player.getY(), pixel, pixel);
-		this.player.Derecha();
+		this.player.Mover(gc,Movimiento.DERECHA,pixel);
 		}
 	}
 	
-	void JugadorUbi() {
-		gc = player_c.getGraphicsContext2D();
-        gc.setFill(Color.GREEN);
-        gc.fillOval(this.player.getX(), this.player.getY(), pixel, pixel);
-	}
 	public void Reset() {
 		if (this.player.Final()) {
+		gc = player_c.getGraphicsContext2D();
 		this.NuevoLaberinto();	
-		this.player.Reset();
+		this.player.Reset(gc,pixel);
 		}		
-		this.JugadorUbi();
 	}
 }
