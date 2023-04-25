@@ -16,7 +16,11 @@ public class InicioController {
     @FXML 
     private Canvas img ;
     @FXML 
-    private Canvas sombra ;
+    private Canvas player_c ;
+    @FXML 
+    private Canvas fondo;
+    @FXML 
+    private Canvas sombra;
     private GraphicsContext gc ;
     
 
@@ -32,8 +36,8 @@ public class InicioController {
         			gc.setFill(Color.BLACK);
         			gc.fillRect(x, y, pixel, pixel);
         		}else if (matriz[fila][columna]==0) {
-        			gc.setFill(Color.WHITE);
-        			gc.fillRect(x, y, pixel, pixel);
+        			//gc.setFill(Color.//TRANSPARENT);
+        			gc.clearRect(x, y, pixel, pixel);
         		}else {
         			gc.setFill(Color.RED);
         			gc.fillRect(x, y, pixel, pixel);
@@ -47,8 +51,9 @@ public class InicioController {
 		this.drawCanvas(matriz);
 		this.JugadorUbi();
 		gc = sombra.getGraphicsContext2D();
-        //gc.setFill(Color.BLACK);
-        //gc.fillRect(0, 0, 600, 600);
+		gc = fondo.getGraphicsContext2D();
+        gc.setFill(Color.BLUE);
+        gc.fillRect(0, 0, 600, 600);
         //gc.setFill(null);
         //gc.fillOval(0, 0, pixel0, pixel0);
 	}
@@ -59,7 +64,7 @@ public class InicioController {
 	}
 	public void Arriba() {
 		if (laberinto.HabilitarMovimiento(player.getX(), player.getY()-pixel)) {
-		gc = img.getGraphicsContext2D();
+		gc = player_c.getGraphicsContext2D();
         gc.setFill(Color.WHITE);
         gc.clearRect(this.player.getX(), this.player.getY(), pixel, pixel);
 		this.player.Arriba();
@@ -67,28 +72,28 @@ public class InicioController {
 	}
 	public void Abajo() {
 		if (laberinto.HabilitarMovimiento(player.getX(), player.getY()+pixel)) {
-		gc = img.getGraphicsContext2D();
+		gc = player_c.getGraphicsContext2D();
         gc.clearRect(this.player.getX(), this.player.getY(), pixel, pixel);
 		this.player.Abajo();
 		}
 	}
 	public void Izquierda() {
 		if (laberinto.HabilitarMovimiento(player.getX()-pixel, player.getY())) {
-		gc = img.getGraphicsContext2D();
+		gc = player_c.getGraphicsContext2D();
         gc.clearRect(this.player.getX(), this.player.getY(), pixel, pixel);
 		this.player.Izquierda();
 		}
 	}
 	public void Derecha() {
 		if (laberinto.HabilitarMovimiento(player.getX()+pixel, player.getY())) {
-		gc = img.getGraphicsContext2D();
+		gc = player_c.getGraphicsContext2D();
         gc.clearRect(this.player.getX(), this.player.getY(), pixel, pixel);
 		this.player.Derecha();
 		}
 	}
 	
 	void JugadorUbi() {
-		gc = img.getGraphicsContext2D();
+		gc = player_c.getGraphicsContext2D();
         gc.setFill(Color.GREEN);
         gc.fillOval(this.player.getX(), this.player.getY(), pixel, pixel);
 	}
