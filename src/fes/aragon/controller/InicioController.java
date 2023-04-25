@@ -21,6 +21,10 @@ public class InicioController {
     private Canvas fondo;
     @FXML 
     private Canvas sombra;
+
+    @FXML 
+    private ImageView TituloImage;
+
     private GraphicsContext gc ;
     
 
@@ -46,6 +50,15 @@ public class InicioController {
     }
 	@FXML
 	public void initialize() {
+		TranslateTransition translate = new TranslateTransition();
+		translate.setNode(TituloImage);
+		translate.setDuration(Duration.millis(1000));
+		translate.setByY(200);
+		translate.play();
+		Empezar();
+	}
+	@FXML
+	public void Empezar() {
 		this.laberinto.laberintoRandom();
 		int[][] matriz = this.laberinto.getMatriz();
 		this.drawCanvas(matriz);

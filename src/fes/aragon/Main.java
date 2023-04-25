@@ -18,11 +18,10 @@ public class Main extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Inicio.fxml"));
 			Pane root = loader.load();
-
-           InicioController controller = loader.getController();
+			InicioController controller = loader.getController();
 
 			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("css/application.css").toExternalForm());
+			//scene.getStylesheets().add(getClass().getResource("css/application.css").toExternalForm());
 			scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 				@Override
 				public void handle(KeyEvent event) {
