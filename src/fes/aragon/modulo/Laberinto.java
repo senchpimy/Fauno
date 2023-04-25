@@ -21,7 +21,7 @@ public class Laberinto {
 		//int escojerNivel=rand.nextInt(2);
 		Boolean escojerNivel=rand.nextBoolean();
 		float poblacion = rand.nextFloat();
-		while (poblacion <0.5 || poblacion>0.8)
+		while (poblacion <0.65 || poblacion>0.8)
 			poblacion = rand.nextFloat();
 		if (escojerNivel) {
 			this.nivelPasado();
