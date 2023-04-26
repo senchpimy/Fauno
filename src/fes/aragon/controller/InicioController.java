@@ -24,8 +24,10 @@ public class InicioController {
 	int pixel=20;
 	Deambulante deambulante= new Deambulante();
 	int tipo_laberinto;
+	Musica musica = new Musica(); 
 	
 	Boolean activo=true;
+	Boolean activo_musica=true;
 
     @FXML 
     private Canvas img ;
@@ -72,6 +74,9 @@ public class InicioController {
         deambulante.setGc(deambulantes.getGraphicsContext2D());
         player.setPasos(pixel);
         player.setgc(player_c.getGraphicsContext2D());
+		musica.start();
+		//deambulante.run();
+
 		//TranslateTransition translate = new TranslateTransition();
 		//translate.setNode(TituloImage);
 		//translate.setDuration(Duration.millis(1000));
@@ -88,16 +93,20 @@ public class InicioController {
 	public void VerificarActividad() {
 		activo = player.Salud();
 		if (!activo) {
+			musica.dete();
 			gc = sombra.getGraphicsContext2D();
 			gc.setFill(Color.RED);
 			gc.fillRect(0, 0, 600, 600);
 			gc.setFill(Color.BLACK);
 			gc.setFont(new Font (gc.getFont().getName(),50));
 			gc.fillText("Moriste de Hambre",100, 150);
+			if (activo_musica) {
 			String cancion = "media/die.mp3";
 			Media hit = new Media(new File(cancion).toURI().toString());
 			MediaPlayer mediaPlayer = new MediaPlayer(hit);
 			mediaPlayer.play();
+			activo_musica=false;
+			}
 		}
 	}
 

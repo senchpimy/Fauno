@@ -1,12 +1,6 @@
 package fes.aragon.modulo;
 
 import java.util.Random;
-import java.util.Vector;
-
-import javafx.util.Pair;
-
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Stack;
 
 public class Laberinto {
@@ -18,13 +12,13 @@ public class Laberinto {
 	private Random rand = new Random();
 
 	public int laberintoRandom() {
-		int tipo;
-		Boolean escojerNivel=rand.nextBoolean();
-		float poblacion = rand.nextFloat();
-		while (poblacion <0.65 || poblacion>0.8)
-			poblacion = rand.nextFloat();
-		if (escojerNivel) {
-			this.nivelPasado();
+		nivelPasado();
+		int escojerNivel=rand.nextInt(4);
+		if (escojerNivel==0) {
+			float poblacion = rand.nextFloat();
+			while (poblacion <0.65 || poblacion>0.8)
+				poblacion = rand.nextFloat();
+
 			for (int i = 0; i < filas; i++)
 				for (int j = 0; j < filas; j++)
 					this.matriz[i][j] = (rand.nextFloat() > poblacion ? 1 : 0);
@@ -36,57 +30,95 @@ public class Laberinto {
 				}
 			matriz[0][this.columnas/2] = 2;
 			matriz[this.filas-1][this.columnas/2] = 2;
-			tipo=1;
-		} else {
-			this.resetMatriz(1);
+		} else if (escojerNivel==1) {
+			resetMatriz(1);
 			if (rand.nextBoolean()) {
-				generateTunels(rand.nextInt(2,6));
+				generateTunels(rand.nextInt(3,7));
 			}else {
-				generateTunelsDif(rand.nextInt(2,6));
+				generateTunelsDif(rand.nextInt(3,7));
 			}
 			matriz[0][15] = 2;
 			matriz[29][15] = 2;
-			tipo=2;
+		}else if (escojerNivel>1){
+			resetMatriz(0);
+			mazeDivision();
+			matriz[10][0] = 1;
+			matriz[filas-10][0] = 1;
+			matriz[filas-1][columnas/2] = 2;
+			matriz[0][columnas/2] = 2;
+			matriz[filas-1][columnas/2] = 2;
 		}
 		GenerarComida();
-		return tipo;
+		return escojerNivel+1;
       }
 
-	void mazeDivision(int x, int y, int numCols, int numRow) {
-		if (numCols < 2 || numRow < 2)
-			return;
-		Boolean horizontal;
-		if (numRow < numCols)
-			horizontal = true;
-		else if (numCols < numRow)
-			horizontal =false;
-		else
-			horizontal=rand.nextBoolean();
+	void mazeDivision() {
+	    int VERTICAL = 0;
+	    int HORIZONTAL = 1;            
+		Stack<Tupla<Tupla<Integer, Integer>, Tupla<Integer, Integer>>> regiones = new Stack<>();
+        regiones.push(new Tupla<>(new Tupla<>(1, 0), new Tupla<>(28, 29)));
+        Random random = new Random();
 
-		int wx= x+(horizontal? 0:rand.nextInt(numCols-2));
-		int wy= y+(horizontal? rand.nextInt(numRow-2):0);
+        while (!regiones.isEmpty()) {
+            Tupla<Tupla<Integer, Integer>, Tupla<Integer, Integer>> Region = regiones.pop();
+            int minY = Region.first.first;
+            int minX = Region.first.second;
+            int maxY = Region.second.first;
+            int maxX = Region.second.second;
+            int alto = maxY - minY + 1;
+            int ancho = maxX - minX + 1;
 
-		int px= wx+(horizontal? 0:rand.nextInt(numCols));
-		int py= wy+(horizontal? rand.nextInt(numRow):0);
-		
-		int dx=(horizontal?1:0);
-		int dy=(horizontal?0:1);
-		
-		//int distancia = (horizontal?numCols:numRow);
-		
-		//int dir = (horizontal? 1:2);
-		for (int i =0; i<numCols;i++) {
-		        if (wx!=px || wy!=py)
-		      	  matriz[wy][wx]=1;
+            if (alto <= 1 || ancho <= 1) {
+                continue;
+            }
 
-		          wx += dx;
-		          wy += dy;
-		}
-		int nx=x;
-		int ny=y;
-		int w = (horizontal? numCols:x+numCols-wx-1);
-		int h = (horizontal? y+numRow-wy-1:numRow);
-		this.mazeDivision(nx, ny, w, h);
+            int dir;
+            if (ancho < alto) {
+                dir = HORIZONTAL;  // with 100% chance
+            } else if (ancho > alto) {
+                dir = VERTICAL;  // with 100% chance
+            } else {
+                if (ancho == 2) {
+                    continue;
+                }
+                dir = random.nextInt(2);
+            }
+            int cutLength = (dir == HORIZONTAL) ? ancho : alto;
+            if (cutLength < 3) {
+                continue;
+            }
+            int cutPos = random.nextInt(cutLength / 2) * 2 + 1;
+            int hoyo = random.nextInt((dir == VERTICAL) ? alto : ancho) / 2 * 2;
+            if (dir == VERTICAL) {
+                for (int row = minY; row <= maxY; row++) {
+                    matriz[row][minX + cutPos] = 1;
+                }
+                matriz[minY + hoyo][minX + cutPos] = 0;
+            } else {  
+                for (int col = minX; col <= maxX; col++) {
+                    matriz[minY + cutPos][col] = 1;
+                }
+                matriz[minY + cutPos][minX + hoyo] = 0;
+            }
+
+            if (dir == VERTICAL) {
+                regiones.push(new Tupla<>(new Tupla<>(minY, minX), new Tupla<>(maxY, minX + cutPos - 1)));
+                regiones.push(new Tupla<>(new Tupla<>(minY, minX + cutPos + 1), new Tupla<>(maxY, maxX)));
+            } else {  // horizontal
+                regiones.push(new Tupla<>(new Tupla<>(minY, minX), new Tupla<>(minY + cutPos - 1, maxX)));
+                regiones.push(new Tupla<>(new Tupla<>(minY + cutPos + 1, minX), new Tupla<>(maxY, maxX)));
+            }
+        }
+    }
+
+    static class Tupla<T, T1> {
+        T first;
+        T1 second;
+
+        public Tupla(T first, T1 second) {
+            this.first = first;
+            this.second = second;
+            }
 	}
 	
 	public void tunel(int x1, int y1, int x2, int y2) {

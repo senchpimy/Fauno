@@ -58,8 +58,8 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
-		Musica musica = new Musica(); 
-		musica.start();
+		//Musica musica = new Musica(); 
+		//musica.start();
 		launch(args);
 	}
 }

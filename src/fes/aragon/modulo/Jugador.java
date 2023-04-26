@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 import java.io.File;
 
 public class Jugador extends Creatura{
-	private int energia=1000;
+	private int energia=10000;
 	private Boolean vivo=true;
 	private int pasos;
 	private GraphicsContext gc;
