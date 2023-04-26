@@ -10,6 +10,15 @@ import java.io.File;
 public class Jugador extends Creatura{
 	private int energia=1000;
 	private Boolean vivo=true;
+	private int pasos;
+	private GraphicsContext gc;
+	
+	public void setgc(GraphicsContext grc) {
+		gc=grc;
+	}
+	public void setPasos(int pixel) {
+		pasos=pixel;
+	}
 
     @FXML 
     private Image Frente=new Image(new File("media/frente.png").toURI().toString());
@@ -44,11 +53,11 @@ public class Jugador extends Creatura{
 		return (X>570 && Y==300? true:false);
 	}
 	
-	public void Reset(GraphicsContext gc,int pixel) {
+	public void Reset(GraphicsContext gc) {
 		X=0;
 		Y=300;
         gc.setFill(Color.GREEN);
-        gc.fillOval(X, Y, pixel, pixel);
+        gc.fillOval(X, Y, pasos, pasos);
 	}
 	public void Alimentarse() {
 	energia+=100;	
@@ -56,10 +65,9 @@ public class Jugador extends Creatura{
 
 	public Boolean Salud() {return vivo;}
 
-	public void Mover(GraphicsContext gc,Movimiento direccion,int pixel) {
-		System.out.println(energia);
+	public void Mover(Movimiento direccion) {
 		if (!vivo) return;
-        gc.clearRect(X, Y, pixel, pixel);
+        gc.clearRect(X, Y, pasos, pasos);
         energia-=10;
         Image img;
         if (direccion==Movimiento.ARRIBA) {
@@ -75,7 +83,7 @@ public class Jugador extends Creatura{
 		Izquierda();
 		img=Izquierda;
         }
-        gc.drawImage(img,X, Y, pixel, pixel);
+        gc.drawImage(img,X, Y, pasos, pasos);
         if (energia<=0)vivo=false;
 	}
 }

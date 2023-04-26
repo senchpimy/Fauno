@@ -17,7 +17,8 @@ public class Laberinto {
 	private int[][] matriz = new int[this.filas][this.columnas];
 	private Random rand = new Random();
 
-	public void laberintoRandom() {
+	public int laberintoRandom() {
+		int tipo;
 		Boolean escojerNivel=rand.nextBoolean();
 		float poblacion = rand.nextFloat();
 		while (poblacion <0.65 || poblacion>0.8)
@@ -35,6 +36,7 @@ public class Laberinto {
 				}
 			matriz[0][this.columnas/2] = 2;
 			matriz[this.filas-1][this.columnas/2] = 2;
+			tipo=1;
 		} else {
 			this.resetMatriz(1);
 			if (rand.nextBoolean()) {
@@ -44,8 +46,10 @@ public class Laberinto {
 			}
 			matriz[0][15] = 2;
 			matriz[29][15] = 2;
+			tipo=2;
 		}
 		GenerarComida();
+		return tipo;
       }
 
 	void mazeDivision(int x, int y, int numCols, int numRow) {
