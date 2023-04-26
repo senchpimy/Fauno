@@ -25,6 +25,7 @@ public class Main extends Application {
 			scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 				@Override
 				public void handle(KeyEvent event) {
+					controller.VerificarActividad();
 					switch (event.getCode()) {
 					case UP :
 					case W :
@@ -58,7 +59,7 @@ public class Main extends Application {
 	
 	public static void main(String[] args) {
 		Musica musica = new Musica(); 
-		//musica.start();
+		musica.start();
 		launch(args);
 	}
 }

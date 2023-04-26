@@ -1,11 +1,13 @@
 package fes.aragon.controller;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 //import java.util.concurrent.TimeUnit;
 import javafx.util.Duration;
 
@@ -18,6 +20,9 @@ public class InicioController {
 	Laberinto laberinto = new Laberinto();
 	Jugador player = new Jugador();
 	int pixel=20;
+	Deambulante deambulante= new Deambulante();
+	
+	Boolean activo=true;
 
     @FXML 
     private Canvas img ;
@@ -49,6 +54,9 @@ public class InicioController {
         			gc.fillRect(x, y, pixel, pixel);
         		}else if (matriz[fila][columna]==0) {
         			gc.clearRect(x, y, pixel, pixel);
+        		}else if (matriz[fila][columna]==3) {
+        			gc.setFill(Color.PINK);
+        			gc.fillRect(x, y, pixel, pixel);
         		}else {
         			gc.setFill(Color.RED);
         			gc.fillRect(x, y, pixel, pixel);
@@ -59,8 +67,9 @@ public class InicioController {
 	public void initialize() {
 		GraphicsContext grc = fondo.getGraphicsContext2D();
 		Image Fondo=new Image(new File("media/piso.png").toURI().toString());
-		//grc.clearRect(1,0, 600, 600);
         grc.drawImage(Fondo,0, 0, 600, 600);
+        deambulante.setPixel(pixel);
+        deambulante.setGc(deambulantes.getGraphicsContext2D());
 		//TranslateTransition translate = new TranslateTransition();
 		//translate.setNode(TituloImage);
 		//translate.setDuration(Duration.millis(1000));
@@ -68,12 +77,25 @@ public class InicioController {
 		//translate.play();
 		Empezar();
 	}
+
 	@FXML
 	public void Empezar() {
 		this.laberinto.laberintoRandom();
 		int[][] matriz = this.laberinto.getMatriz();
 		this.drawCanvas(matriz);
 		this.player.Empezar(player_c.getGraphicsContext2D(),pixel);
+	}
+	
+	public void VerificarActividad() {
+		activo = player.Salud();
+		if (!activo) {
+		gc = sombra.getGraphicsContext2D();
+        gc.setFill(Color.RED);
+        gc.fillRect(0, 0, 600, 600);
+        gc.setFill(Color.BLACK);
+        gc.setFont(new Font (gc.getFont().getName(),50));
+        gc.fillText("Moriste de Hambre",100, 150);
+		}
 	}
 
 	void NuevoLaberinto() {
@@ -82,28 +104,48 @@ public class InicioController {
 		this.drawCanvas(matriz);
 	}
 	public void Arriba() {
-		if (laberinto.HabilitarMovimiento(player.getX(), player.getY()-pixel)) {
-		gc = player_c.getGraphicsContext2D();
-		this.player.Mover(gc,Movimiento.ARRIBA,pixel);
+		int res =(laberinto.HabilitarMovimiento(player.getX(), player.getY()-pixel));
+		if (res==1) return;
+		else if (res==3) {
+			player.Alimentarse();
+			gc = img.getGraphicsContext2D();
+			gc.clearRect(player.getX(), player.getY(), pixel, pixel);
 		}
+		gc = player_c.getGraphicsContext2D();
+		player.Mover(gc,Movimiento.ARRIBA,pixel);
 	}
 	public void Abajo() {
-		if (laberinto.HabilitarMovimiento(player.getX(), player.getY()+pixel)) {
+		int res=laberinto.HabilitarMovimiento(player.getX(), player.getY()+pixel);
+		if (res==1) return;
+		else if (res==3) {
+			player.Alimentarse();
+			gc = img.getGraphicsContext2D();
+			gc.clearRect(player.getX(), player.getY(), pixel, pixel);
+		}
 		gc = player_c.getGraphicsContext2D();
 		this.player.Mover(gc,Movimiento.ABAJO,pixel);
-		}
 	}
 	public void Izquierda() {
-		if (laberinto.HabilitarMovimiento(player.getX()-pixel, player.getY())) {
+		int res=  (laberinto.HabilitarMovimiento(player.getX()-pixel, player.getY()));
+		if (res==1) return;
+		else if (res==3) {
+			player.Alimentarse();
+			gc = img.getGraphicsContext2D();
+			gc.clearRect(player.getX(), player.getY(), pixel, pixel);
+		}
 		gc = player_c.getGraphicsContext2D();
 		this.player.Mover(gc,Movimiento.IZQUIERDA,pixel);
-		}
 	}
 	public void Derecha() {
-		if (laberinto.HabilitarMovimiento(player.getX()+pixel, player.getY())) {
+		int res= (laberinto.HabilitarMovimiento(player.getX()+pixel, player.getY()));
+		if (res==1) return;
+		else if (res==3) {
+			player.Alimentarse();
+			gc = img.getGraphicsContext2D();
+			gc.clearRect(player.getX(), player.getY(), pixel, pixel);
+		}
 		gc = player_c.getGraphicsContext2D();
 		this.player.Mover(gc,Movimiento.DERECHA,pixel);
-		}
 	}
 	
 	public void Reset() {
@@ -111,6 +153,7 @@ public class InicioController {
 		gc = player_c.getGraphicsContext2D();
 		this.NuevoLaberinto();	
 		this.player.Reset(gc,pixel);
+		activo = player.Salud();
 		}		
 	}
 }

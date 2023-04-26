@@ -18,7 +18,6 @@ public class Laberinto {
 	private Random rand = new Random();
 
 	public void laberintoRandom() {
-		//int escojerNivel=rand.nextInt(2);
 		Boolean escojerNivel=rand.nextBoolean();
 		float poblacion = rand.nextFloat();
 		while (poblacion <0.65 || poblacion>0.8)
@@ -46,6 +45,7 @@ public class Laberinto {
 			matriz[0][15] = 2;
 			matriz[29][15] = 2;
 		}
+		GenerarComida();
       }
 
 	void mazeDivision(int x, int y, int numCols, int numRow) {
@@ -183,21 +183,25 @@ public class Laberinto {
 		this.niveles = niveles;
 	}
 
-	public Boolean HabilitarMovimiento(int x, int y) {
+	public int HabilitarMovimiento(int x, int y) {
 		int valor;
 		try {
 			valor =matriz[x / pixel][y / pixel] ;
+			if (valor==1)return 1;
 		}catch(Exception e){
-			valor=1;
+			return 1;
 		}
-		if (valor != 1) 
-			return true;
-		return false;
+		if (valor == 0) 
+			return 0;
+		else if (valor==3)
+			matriz[x / pixel][y / pixel]=0;
+			return 3;
+		//return 1;
 	}
 
 	void resetMatriz(int val) {
 		for (int i = 0; i < filas; i++)
-			for (int j = 0; j < filas; j++)
+			for (int j = 0; j < columnas; j++)
 				this.matriz[i][j] = val;
 	}
 
@@ -208,5 +212,12 @@ public class Laberinto {
 			val = rand.nextInt(max);
 		}
 		return val;
+	}
+	private void GenerarComida() {
+		for (int i = 0; i < filas; i++)
+			for (int j = 0; j < columnas; j++)
+				if (rand.nextFloat()<0.01 && matriz[i][j]==0)
+					this.matriz[i][j] = 3;
+		
 	}
 }

@@ -8,6 +8,8 @@ import javafx.scene.paint.Color;
 import java.io.File;
 
 public class Jugador extends Creatura{
+	private int energia=1000;
+	private Boolean vivo=true;
 
     @FXML 
     private Image Frente=new Image(new File("media/frente.png").toURI().toString());
@@ -22,7 +24,6 @@ public class Jugador extends Creatura{
     private Image Derecha=new Image(new File("media/der.png").toURI().toString());
 	
 	public Jugador() {
-		super();
 		X=0;
 		Y=300;
 	}
@@ -49,9 +50,17 @@ public class Jugador extends Creatura{
         gc.setFill(Color.GREEN);
         gc.fillOval(X, Y, pixel, pixel);
 	}
-	
+	public void Alimentarse() {
+	energia+=100;	
+	}
+
+	public Boolean Salud() {return vivo;}
+
 	public void Mover(GraphicsContext gc,Movimiento direccion,int pixel) {
+		System.out.println(energia);
+		if (!vivo) return;
         gc.clearRect(X, Y, pixel, pixel);
+        energia-=10;
         Image img;
         if (direccion==Movimiento.ARRIBA) {
 		Arriba();
@@ -67,5 +76,6 @@ public class Jugador extends Creatura{
 		img=Izquierda;
         }
         gc.drawImage(img,X, Y, pixel, pixel);
+        if (energia<=0)vivo=false;
 	}
 }
