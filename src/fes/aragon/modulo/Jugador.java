@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 import java.io.File;
 
 public class Jugador extends Creatura{
-	private int energia=10000;
+	private int energia=100;
 	private Boolean vivo=true;
 	private int pasos;
 	private GraphicsContext gc;
@@ -69,6 +69,7 @@ public class Jugador extends Creatura{
 		if (!vivo) return;
         gc.clearRect(X, Y, pasos, pasos);
         energia-=10;
+        System.out.println("Paso");
         Image img;
         if (direccion==Movimiento.ARRIBA) {
 		Arriba();

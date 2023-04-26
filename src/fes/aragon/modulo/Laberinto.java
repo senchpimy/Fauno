@@ -11,10 +11,9 @@ public class Laberinto {
 	private int[][] matriz = new int[this.filas][this.columnas];
 	private Random rand = new Random();
 
-	public int laberintoRandom() {
-		nivelPasado();
-		int escojerNivel=rand.nextInt(4);
-		if (escojerNivel==0) {
+	public LabT laberintoRandom() {
+		LabT escojerNivel=LabT.randomTipo();
+		if (escojerNivel==LabT.RUINAS) {
 			float poblacion = rand.nextFloat();
 			while (poblacion <0.65 || poblacion>0.8)
 				poblacion = rand.nextFloat();
@@ -30,7 +29,7 @@ public class Laberinto {
 				}
 			matriz[0][this.columnas/2] = 2;
 			matriz[this.filas-1][this.columnas/2] = 2;
-		} else if (escojerNivel==1) {
+		} else if (escojerNivel==LabT.TUNEL) {
 			resetMatriz(1);
 			if (rand.nextBoolean()) {
 				generateTunels(rand.nextInt(3,7));
@@ -39,7 +38,7 @@ public class Laberinto {
 			}
 			matriz[0][15] = 2;
 			matriz[29][15] = 2;
-		}else if (escojerNivel>1){
+		}else if (escojerNivel==LabT.NORMAL){
 			resetMatriz(0);
 			mazeDivision();
 			matriz[10][0] = 1;
@@ -49,7 +48,7 @@ public class Laberinto {
 			matriz[filas-1][columnas/2] = 2;
 		}
 		GenerarComida();
-		return escojerNivel+1;
+		return escojerNivel;
       }
 
 	void mazeDivision() {

@@ -1,4 +1,5 @@
 package fes.aragon.controller;
+import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -7,6 +8,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -23,7 +25,7 @@ public class InicioController {
 	Jugador player = new Jugador();
 	int pixel=20;
 	Deambulante deambulante= new Deambulante();
-	int tipo_laberinto;
+	LabT tipo_laberinto;
 	Musica musica = new Musica(); 
 	
 	Boolean activo=true;
@@ -95,17 +97,19 @@ public class InicioController {
 		if (!activo) {
 			musica.dete();
 			gc = sombra.getGraphicsContext2D();
-			gc.setFill(Color.RED);
-			gc.fillRect(0, 0, 600, 600);
-			gc.setFill(Color.BLACK);
-			gc.setFont(new Font (gc.getFont().getName(),50));
-			gc.fillText("Moriste de Hambre",100, 150);
+			Image Fondo=new Image(new File("media/MuerteFondo.png").toURI().toString());
+			gc.drawImage(Fondo,0, 0, 600, 600);
+			Image Letras=new Image(new File("media/MuerteLetras.png").toURI().toString());
+			gc.drawImage(Letras,0, 0, 600, 600);
+			Font Puntuacion=new Font("media/ROMANUS.otf",30);
+			gc.setFont(Puntuacion);
+			gc.fillText("Recorriste: "+laberinto.getNiveles()+" niveles",300, 300);
+
 			if (activo_musica) {
-			String cancion = "media/die.mp3";
-			Media hit = new Media(new File(cancion).toURI().toString());
-			MediaPlayer mediaPlayer = new MediaPlayer(hit);
-			mediaPlayer.play();
-			activo_musica=false;
+				Media hit = new Media(new File("media/die.mp3").toURI().toString());
+				MediaPlayer mediaPlayer = new MediaPlayer(hit);
+				mediaPlayer.play();
+				activo_musica=false;
 			}
 		}
 	}
@@ -158,9 +162,9 @@ public class InicioController {
 	
 	public void PintPiso() {
 		Image Fondo;
-		if (tipo_laberinto ==1) {
+		if (tipo_laberinto ==LabT.RUINAS) {
 			Fondo=new Image(new File("media/pisoLuz.png").toURI().toString());
-		}else if (tipo_laberinto==2) {
+		}else if (tipo_laberinto==LabT.TUNEL) {
 			Fondo=new Image(new File("media/pisoOscuro.png").toURI().toString());
 		}else {
 			Fondo=new Image(new File("media/piso.png").toURI().toString());
