@@ -106,46 +106,46 @@ public class InicioController {
 	public void Arriba() {
 		int res =(laberinto.HabilitarMovimiento(player.getX(), player.getY()-pixel));
 		if (res==1) return;
-		else if (res==3) {
+		gc = player_c.getGraphicsContext2D();
+		player.Mover(gc,Movimiento.ARRIBA,pixel);
+		if (res==3) {
 			player.Alimentarse();
 			gc = img.getGraphicsContext2D();
 			gc.clearRect(player.getX(), player.getY(), pixel, pixel);
 		}
-		gc = player_c.getGraphicsContext2D();
-		player.Mover(gc,Movimiento.ARRIBA,pixel);
 	}
 	public void Abajo() {
 		int res=laberinto.HabilitarMovimiento(player.getX(), player.getY()+pixel);
 		if (res==1) return;
-		else if (res==3) {
+		gc = player_c.getGraphicsContext2D();
+		this.player.Mover(gc,Movimiento.ABAJO,pixel);
+		if (res==3) {
 			player.Alimentarse();
 			gc = img.getGraphicsContext2D();
 			gc.clearRect(player.getX(), player.getY(), pixel, pixel);
 		}
-		gc = player_c.getGraphicsContext2D();
-		this.player.Mover(gc,Movimiento.ABAJO,pixel);
 	}
 	public void Izquierda() {
 		int res=  (laberinto.HabilitarMovimiento(player.getX()-pixel, player.getY()));
 		if (res==1) return;
-		else if (res==3) {
+		gc = player_c.getGraphicsContext2D();
+		this.player.Mover(gc,Movimiento.IZQUIERDA,pixel);
+		if (res==3) {
 			player.Alimentarse();
 			gc = img.getGraphicsContext2D();
 			gc.clearRect(player.getX(), player.getY(), pixel, pixel);
 		}
-		gc = player_c.getGraphicsContext2D();
-		this.player.Mover(gc,Movimiento.IZQUIERDA,pixel);
 	}
 	public void Derecha() {
 		int res= (laberinto.HabilitarMovimiento(player.getX()+pixel, player.getY()));
 		if (res==1) return;
-		else if (res==3) {
+		gc = player_c.getGraphicsContext2D();
+		this.player.Mover(gc,Movimiento.DERECHA,pixel);
+		if (res==3) {
 			player.Alimentarse();
 			gc = img.getGraphicsContext2D();
 			gc.clearRect(player.getX(), player.getY(), pixel, pixel);
 		}
-		gc = player_c.getGraphicsContext2D();
-		this.player.Mover(gc,Movimiento.DERECHA,pixel);
 	}
 	
 	public void Reset() {
