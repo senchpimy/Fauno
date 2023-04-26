@@ -69,7 +69,6 @@ public class Jugador extends Creatura{
 		if (!vivo) return;
         gc.clearRect(X, Y, pasos, pasos);
         energia-=10;
-        System.out.println("Paso");
         Image img;
         if (direccion==Movimiento.ARRIBA) {
 		Arriba();

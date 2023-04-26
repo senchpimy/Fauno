@@ -1,10 +1,20 @@
 package fes.aragon.controller;
+import javafx.animation.AnimationTimer;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -16,6 +26,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 import fes.aragon.modulo.*;
 import fes.aragon.modulo.Jugador;
@@ -39,11 +50,30 @@ public class InicioController {
     private Canvas fondo;
     @FXML 
     private Canvas sombra;
+
     @FXML 
     private Canvas deambulantes;
 
-    //@FXML 
-    //private ImageView TituloImage;
+    @FXML 
+    private Canvas entradaLetras;
+
+    @FXML 
+    private Canvas entrada;
+
+    @FXML 
+    private ImageView MuerteFondo;
+
+    @FXML 
+    private ImageView MuerteLetras;
+
+    @FXML private ScrollPane scrollPane;
+
+    @FXML 
+    private ImageView TituloImage;
+
+    @FXML 
+    private ImageView Titulo;
+
 
     private GraphicsContext gc ;
     
@@ -77,13 +107,35 @@ public class InicioController {
         player.setPasos(pixel);
         player.setgc(player_c.getGraphicsContext2D());
 		musica.start();
-		//deambulante.run();
+		Image Entrada = new Image(new File("media/Entrada.png").toURI().toString());
+		Image Titulo = new Image(new File("media/Titulo.png").toURI().toString());
+		long tiempoInicio = System.nanoTime();
+		AnimationTimer tiempo = new AnimationTimer() {
+			@Override
+			public void handle(long tiempoActual) {
+				double sec = (tiempoActual - tiempoInicio) / 1000000000.0;
+				GraphicsContext grc=entrada.getGraphicsContext2D();
+				GraphicsContext grc1=entradaLetras.getGraphicsContext2D();
+				grc.clearRect(0, 0, 600, 600);
+				grc1.clearRect(0, 0, 600, 600);
+				double y;
+				if (sec<24) {
+					y=-(130*sec);
+				}else {
+					y=-2500;
+				}
 
-		//TranslateTransition translate = new TranslateTransition();
-		//translate.setNode(TituloImage);
-		//translate.setDuration(Duration.millis(1000));
-		//translate.setByY(200);
-		//translate.play();
+				if (sec<10) {
+					grc1.drawImage(Titulo,0,90);
+				}else {
+					grc1.drawImage(Titulo,0,y);
+				}
+					grc.drawImage(Entrada,0,y);
+			}
+
+		//deambulante.run();
+		};
+		//tiempo.start();
 		Empezar();
 	}
 
@@ -97,15 +149,12 @@ public class InicioController {
 		if (!activo) {
 			musica.dete();
 			gc = sombra.getGraphicsContext2D();
-			Image Fondo=new Image(new File("media/MuerteFondo.png").toURI().toString());
-			gc.drawImage(Fondo,0, 0, 600, 600);
-			Image Letras=new Image(new File("media/MuerteLetras.png").toURI().toString());
-			gc.drawImage(Letras,0, 0, 600, 600);
 			Font Puntuacion=new Font("media/ROMANUS.otf",30);
 			gc.setFont(Puntuacion);
-			gc.fillText("Recorriste: "+laberinto.getNiveles()+" niveles",300, 300);
-
+		    gc.fillText("Recorriste: "+laberinto.getNiveles()+" niveles",300, 300);
 			if (activo_musica) {
+				MuerteFondo.setOpacity(100);
+				MuerteLetras.setOpacity(100);
 				Media hit = new Media(new File("media/die.mp3").toURI().toString());
 				MediaPlayer mediaPlayer = new MediaPlayer(hit);
 				mediaPlayer.play();
