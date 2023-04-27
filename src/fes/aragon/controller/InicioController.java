@@ -1,4 +1,6 @@
 package fes.aragon.controller;
+import java.util.Stack;
+
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -29,7 +31,6 @@ import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import fes.aragon.modulo.*;
-import fes.aragon.modulo.Jugador;
 
 public class InicioController {
 	Laberinto laberinto = new Laberinto();
@@ -40,6 +41,7 @@ public class InicioController {
 	Musica musica = new Musica(); 
 	
 	Boolean activo=true;
+	ParsLabs paredes=new ParsLabs();
 	Boolean activo_musica=true;
 
     @FXML 
@@ -74,30 +76,57 @@ public class InicioController {
     @FXML 
     private ImageView Titulo;
 
+	Image Comida = new Image(new File("media/Comida.png").toURI().toString());
 
     private GraphicsContext gc ;
+    Boolean borrar=true;
     
-
-    @FXML 
     private void drawCanvas(int[][] matriz) {
     	gc = img.getGraphicsContext2D();
+		Stack<Tupla<Integer, Integer>> comida = new Stack<>();
+		paredes.setMatriz(matriz);
+		paredes.setPixel(pixel);
+    	if (tipo_laberinto!=LabT.RUINAS) {
         for (int fila=0; fila<matriz.length;fila++)
         	for (int columna=0; columna<matriz[fila].length;columna++) {
         			int x=fila*pixel;
         			int y=columna*pixel;
         		if (matriz[fila][columna]==1) {
-        			gc.setFill(Color.BLACK);
-        			gc.fillRect(x, y, pixel, pixel);
+        			//gc.clearRect(x, y, pixel, pixel);
+        			paredes.pintarSimple(fila, columna, gc);
         		}else if (matriz[fila][columna]==0) {
         			gc.clearRect(x, y, pixel, pixel);
-        		}else if (matriz[fila][columna]==3) {
-        			gc.setFill(Color.PINK);
-        			gc.fillRect(x, y, pixel, pixel);
+        		}else if (matriz[fila][columna]==3) {//Comida
+        			comida.push(new Tupla<>(x,y));
         		}else {
         			gc.setFill(Color.RED);
         			gc.fillRect(x, y, pixel, pixel);
         		}
         	}
+    		
+    	}else {
+        for (int fila=0; fila<matriz.length;fila++)
+        	for (int columna=0; columna<matriz[fila].length;columna++) {
+        		int elemento =matriz[fila][columna];
+        			int x=fila*pixel;
+        			int y=columna*pixel;
+        		if (elemento==1) {
+        			gc.clearRect(x, y, pixel, pixel);
+        			paredes.pintarRuinas(fila, columna, gc);
+        		}else if (elemento==0) {
+        			gc.clearRect(x, y, pixel, pixel);
+        		}else if (elemento==3) { //comida
+        			comida.push(new Tupla<>(x,y));
+        		}else {
+        			gc.setFill(Color.RED);
+        			gc.fillRect(x, y, pixel, pixel);
+        		}
+        	}
+    	}
+        while (!comida.isEmpty()) {
+        	Tupla<Integer,Integer> comi = comida.pop();
+        	gc.drawImage(Comida, comi.primero, comi.segundo);
+        }
         PintPiso();
     }
 	@FXML
@@ -106,7 +135,6 @@ public class InicioController {
         deambulante.setGc(deambulantes.getGraphicsContext2D());
         player.setPasos(pixel);
         player.setgc(player_c.getGraphicsContext2D());
-		musica.start();
 		Image Entrada = new Image(new File("media/Entrada.png").toURI().toString());
 		Image Titulo = new Image(new File("media/Titulo.png").toURI().toString());
 		long tiempoInicio = System.nanoTime();
@@ -116,13 +144,16 @@ public class InicioController {
 				double sec = (tiempoActual - tiempoInicio) / 1000000000.0;
 				GraphicsContext grc=entrada.getGraphicsContext2D();
 				GraphicsContext grc1=entradaLetras.getGraphicsContext2D();
+				if (borrar) {
 				grc.clearRect(0, 0, 600, 600);
 				grc1.clearRect(0, 0, 600, 600);
+				}
 				double y;
 				if (sec<24) {
-					y=-(130*sec);
+					y=-(110*sec);
 				}else {
 					y=-2500;
+					borrar=false;
 				}
 
 				if (sec<10) {
@@ -136,6 +167,7 @@ public class InicioController {
 		//deambulante.run();
 		};
 		//tiempo.start();
+		//musica.start();
 		Empezar();
 	}
 
@@ -166,8 +198,9 @@ public class InicioController {
 	void NuevoLaberinto() {
 		tipo_laberinto=this.laberinto.laberintoRandom();
 		int[][] matriz = this.laberinto.getMatriz();
-		this.drawCanvas(matriz);
+		drawCanvas(matriz);
 	}
+
 	public void Arriba() {
 		int res =(laberinto.HabilitarMovimiento(player.getX(), player.getY()-pixel));
 		if (res==1) return;
@@ -229,5 +262,14 @@ public class InicioController {
 		player.Reset(gc);
 		activo = player.Salud();
 		}		
+	}
+	static class Tupla<T, T1> {
+        T primero;
+        T1 segundo;
+
+        public Tupla(T first, T1 second) {
+            this.primero = first;
+            this.segundo = second;
+            }
 	}
 }

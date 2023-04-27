@@ -60,10 +60,10 @@ public class Laberinto {
 
         while (!regiones.isEmpty()) {
             Tupla<Tupla<Integer, Integer>, Tupla<Integer, Integer>> Region = regiones.pop();
-            int minY = Region.first.first;
-            int minX = Region.first.second;
-            int maxY = Region.second.first;
-            int maxX = Region.second.second;
+            int minY = Region.primero.primero;
+            int minX = Region.primero.segundo;
+            int maxY = Region.segundo.primero;
+            int maxX = Region.segundo.segundo;
             int alto = maxY - minY + 1;
             int ancho = maxX - minX + 1;
 
@@ -73,20 +73,20 @@ public class Laberinto {
 
             int dir;
             if (ancho < alto) {
-                dir = HORIZONTAL;  // with 100% chance
+                dir = HORIZONTAL; 
             } else if (ancho > alto) {
-                dir = VERTICAL;  // with 100% chance
+                dir = VERTICAL; 
             } else {
                 if (ancho == 2) {
                     continue;
                 }
                 dir = random.nextInt(2);
             }
-            int cutLength = (dir == HORIZONTAL) ? ancho : alto;
-            if (cutLength < 3) {
+            int cortLon = (dir == HORIZONTAL) ? ancho : alto;
+            if (cortLon < 3) {
                 continue;
             }
-            int cutPos = random.nextInt(cutLength / 2) * 2 + 1;
+            int cutPos = random.nextInt(cortLon / 2) * 2 + 1;
             int hoyo = random.nextInt((dir == VERTICAL) ? alto : ancho) / 2 * 2;
             if (dir == VERTICAL) {
                 for (int row = minY; row <= maxY; row++) {
@@ -111,12 +111,12 @@ public class Laberinto {
     }
 
     static class Tupla<T, T1> {
-        T first;
-        T1 second;
+        T primero;
+        T1 segundo;
 
-        public Tupla(T first, T1 second) {
-            this.first = first;
-            this.second = second;
+        public Tupla(T pri, T1 se) {
+            this.primero = pri;
+            this.segundo = se;
             }
 	}
 	
