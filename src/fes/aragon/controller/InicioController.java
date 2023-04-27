@@ -43,6 +43,7 @@ public class InicioController {
 	Boolean activo=true;
 	ParsLabs paredes=new ParsLabs();
 	Boolean activo_musica=true;
+	Caminadores caminadores = new Caminadores();
 
     @FXML 
     private Canvas img ;
@@ -59,6 +60,8 @@ public class InicioController {
     @FXML 
     private Canvas entradaLetras;
 
+    @FXML 
+    private Canvas Caminadores;
     @FXML 
     private Canvas entrada;
 
@@ -133,6 +136,7 @@ public class InicioController {
 	public void initialize() {
         deambulante.setPixel(pixel);
         deambulante.setGc(deambulantes.getGraphicsContext2D());
+        caminadores.setGc(Caminadores.getGraphicsContext2D());
         player.setPasos(pixel);
         player.setgc(player_c.getGraphicsContext2D());
 		Image Entrada = new Image(new File("media/Entrada.png").toURI().toString());
@@ -148,6 +152,13 @@ public class InicioController {
 				grc.clearRect(0, 0, 600, 600);
 				grc1.clearRect(0, 0, 600, 600);
 				}
+				if ((int)sec%2==0)
+				{
+					deambulante.unlock((int)sec);
+					deambulante.Mover();
+					caminadores.Mover();
+				}
+
 				double y;
 				if (sec<24) {
 					y=-(110*sec);
@@ -157,16 +168,15 @@ public class InicioController {
 				}
 
 				if (sec<10) {
-					grc1.drawImage(Titulo,0,90);
+					//grc1.drawImage(Titulo,0,90);
 				}else {
-					grc1.drawImage(Titulo,0,y);
+					//grc1.drawImage(Titulo,0,y);
 				}
-					grc.drawImage(Entrada,0,y);
+					//grc.drawImage(Entrada,0,y);
 			}
 
-		//deambulante.run();
 		};
-		//tiempo.start();
+		tiempo.start();
 		//musica.start();
 		Empezar();
 	}
@@ -198,6 +208,13 @@ public class InicioController {
 	void NuevoLaberinto() {
 		tipo_laberinto=this.laberinto.laberintoRandom();
 		int[][] matriz = this.laberinto.getMatriz();
+		deambulante.setMatriz(matriz);
+		if (tipo_laberinto==LabT.RUINAS) {
+			caminadores.mostrar();
+			caminadores.crearCaminantes();
+		}else {
+			caminadores.noMostrar();
+		}
 		drawCanvas(matriz);
 	}
 

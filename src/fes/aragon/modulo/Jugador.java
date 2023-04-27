@@ -20,16 +20,12 @@ public class Jugador extends Creatura{
 		pasos=pixel;
 	}
 
-    @FXML 
     private Image Frente=new Image(new File("media/frente.png").toURI().toString());
 
-    @FXML 
     private Image Atras=new Image(new File("media/atras.png").toURI().toString());
 
-    @FXML 
     private Image Izquierda=new Image(new File("media/izq.png").toURI().toString());
 
-    @FXML 
     private Image Derecha=new Image(new File("media/der.png").toURI().toString());
 	
 	public Jugador() {
