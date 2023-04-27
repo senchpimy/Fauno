@@ -135,6 +135,7 @@ public class InicioController {
 	@FXML
 	public void initialize() {
         deambulante.setPixel(pixel);
+        caminadores.setPixel(pixel);
         deambulante.setGc(deambulantes.getGraphicsContext2D());
         caminadores.setGc(Caminadores.getGraphicsContext2D());
         player.setPasos(pixel);
@@ -156,6 +157,7 @@ public class InicioController {
 				{
 					deambulante.unlock((int)sec);
 					deambulante.Mover();
+					caminadores.unlock((int)sec);
 					caminadores.Mover();
 				}
 
@@ -209,11 +211,12 @@ public class InicioController {
 		tipo_laberinto=this.laberinto.laberintoRandom();
 		int[][] matriz = this.laberinto.getMatriz();
 		deambulante.setMatriz(matriz);
+		caminadores.setMatriz(matriz);
 		if (tipo_laberinto==LabT.RUINAS) {
-			caminadores.mostrar();
-			caminadores.crearCaminantes();
+			//caminadores.mostrar();
+			//caminadores.crearCaminantes();
 		}else {
-			caminadores.noMostrar();
+			//caminadores.noMostrar();
 		}
 		drawCanvas(matriz);
 	}
