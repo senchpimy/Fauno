@@ -95,7 +95,7 @@ public class InicioController {
         			int x=fila*pixel;
         			int y=columna*pixel;
         		if (matriz[fila][columna]==1) {
-        			//gc.clearRect(x, y, pixel, pixel);
+        			gc.clearRect(x, y, pixel, pixel);
         			paredes.pintarSimple(fila, columna, gc);
         		}else if (matriz[fila][columna]==0) {
         			gc.clearRect(x, y, pixel, pixel);
@@ -170,16 +170,16 @@ public class InicioController {
 				}
 
 				if (sec<10) {
-					//grc1.drawImage(Titulo,0,90);
+					grc1.drawImage(Titulo,0,90);
 				}else {
-					//grc1.drawImage(Titulo,0,y);
+					grc1.drawImage(Titulo,0,y);
 				}
-					//grc.drawImage(Entrada,0,y);
+					grc.drawImage(Entrada,0,y);
 			}
 
 		};
 		tiempo.start();
-		//musica.start();
+		musica.start();
 		Empezar();
 	}
 
@@ -212,12 +212,6 @@ public class InicioController {
 		int[][] matriz = this.laberinto.getMatriz();
 		deambulante.setMatriz(matriz);
 		caminadores.setMatriz(matriz);
-		if (tipo_laberinto==LabT.RUINAS) {
-			//caminadores.mostrar();
-			//caminadores.crearCaminantes();
-		}else {
-			//caminadores.noMostrar();
-		}
 		drawCanvas(matriz);
 	}
 

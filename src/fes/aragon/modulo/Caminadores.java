@@ -12,7 +12,7 @@ public class Caminadores extends Creatura {
 	private GraphicsContext gc;
 	private int pixel;
 	int[][] matriz;
-	Image skin = new Image(new File("media/frente.png").toURI().toString()); // cambiar a fantasma
+	Image skin = new Image(new File("media/Caminante.png").toURI().toString()); // cambiar a fantasma
 	private Random rand = new Random();
 	Boolean mover = true;
 	int segundo;
@@ -26,6 +26,7 @@ public class Caminadores extends Creatura {
 	}
 
 	public void setMatriz(int[][] matr) {
+		gc.clearRect(X * pixel, Y * pixel, pixel, pixel);
 		matriz = matr;
 		int fila = rand.nextInt(29);
 		int columna = rand.nextInt(29);
@@ -51,7 +52,6 @@ public class Caminadores extends Creatura {
 
 	public void Mover() {
 		if (mover) {
-			System.out.println("Movido :"+X+" "+Y);
 			gc.clearRect(X * pixel, Y * pixel, pixel, pixel);
 			int val =1;
 			int new_x=X;

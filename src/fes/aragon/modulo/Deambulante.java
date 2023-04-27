@@ -12,7 +12,7 @@ public class Deambulante extends Creatura{
     private GraphicsContext gc ;
     private int pixel;
     int[][] matriz;
-    Image skin=new Image(new File("media/atras.png").toURI().toString()); //cambiar a fantasma
+    Image skin=new Image(new File("media/Deambulante.png").toURI().toString()); //cambiar a fantasma
 	private Random rand = new Random();
 	Boolean mover = true;
 	int segundo;
