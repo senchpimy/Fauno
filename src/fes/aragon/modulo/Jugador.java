@@ -3,12 +3,14 @@ import java.io.FileInputStream;
 
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import java.io.File;
 
 public class Jugador extends Creatura{
-	private int energia=1000;
+	private int energia=3000;
 	private Boolean vivo=true;
 	private int pasos;
 	private GraphicsContext gc;
@@ -57,6 +59,11 @@ public class Jugador extends Creatura{
 	}
 	public void Alimentarse() {
 	energia+=100;	
+	String cancion = "media/comer.mp3";
+	MediaPlayer mediaPlayer;
+	Media hit = new Media(new File(cancion).toURI().toString());
+	mediaPlayer = new MediaPlayer(hit);
+	mediaPlayer.play();
 	}
 
 	public Boolean Salud() {return vivo;}

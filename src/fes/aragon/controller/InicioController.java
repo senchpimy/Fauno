@@ -65,12 +65,6 @@ public class InicioController {
     @FXML 
     private Canvas entrada;
 
-    @FXML 
-    private ImageView MuerteFondo;
-
-    @FXML 
-    private ImageView MuerteLetras;
-
     @FXML private ScrollPane scrollPane;
 
     @FXML 
@@ -193,16 +187,21 @@ public class InicioController {
 		if (!activo) {
 			musica.dete();
 			gc = sombra.getGraphicsContext2D();
-			Font Puntuacion=new Font("media/ROMANUS.otf",30);
+			Font Puntuacion=new Font("ROMANUS_regular",30);
+            //gc.fillText("Recorriste: "+laberinto.getNiveles()+" niveles",300, 300);
+			//Image muerteFondo=new Image(new File("media/MuerteFondo.png").toURI().toString());
+			//Image muerteLetras=new Image(new File("media/MuerteLetras.png").toURI().toString());
 			gc.setFont(Puntuacion);
-		    gc.fillText("Recorriste: "+laberinto.getNiveles()+" niveles",300, 300);
 			if (activo_musica) {
-				MuerteFondo.setOpacity(100);
-				MuerteLetras.setOpacity(100);
+//               MuerteFondo.setOpacity(100);
+//               MuerteLetras.setOpacity(100);
+				gc.drawImage(muerteFondo,0,0);
+				gc.drawImage(muerteLetras,100,100);
 				Media hit = new Media(new File("media/die.mp3").toURI().toString());
 				MediaPlayer mediaPlayer = new MediaPlayer(hit);
 				mediaPlayer.play();
 				activo_musica=false;
+				gc.fillText("Recorriste: "+laberinto.getNiveles()+" niveles",300, 300);
 			}
 		}
 	}
