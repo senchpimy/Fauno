@@ -7,7 +7,7 @@ public class Laberinto {
 	private int filas = 30;
 	private int columnas = 30;
 	private int niveles = 0;
-	private int pixel=600/30;
+	private int pixel=23;
 	private int[][] matriz = new int[this.filas][this.columnas];
 	private Random rand = new Random();
 
@@ -130,7 +130,7 @@ public class Laberinto {
 	    	matriz[x1][y1]=0;
 	    	try {
 	            matriz[x1][y1+1] = 0;
-	    	}catch (Exception _){
+	    	}catch (Exception e){
 	            matriz[x1][y1-1] = 0;
 	    	}
 	    	int e2=2*err;
@@ -193,16 +193,7 @@ public class Laberinto {
 	       tunel(prev_fila,prev_col,29,15);
 	}
 
-	public void matrizEstado() {
-		for (int i = 0; i < filas; i++) {
-			for (int j = 0; j < filas; j++) {
-				System.out.print(this.matriz[i][j] + " ");
-			}
-			System.out.print("\n");
-		}
-	}
-
-	void nivelPasado() {
+	public void nivelPasado() {
 		this.niveles++;
 	}
 

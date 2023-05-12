@@ -2,7 +2,6 @@ package fes.aragon.controller;
 import java.util.Stack;
 
 import javafx.animation.AnimationTimer;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.animation.FadeTransition;
@@ -64,6 +63,11 @@ public class InicioController {
     private Canvas Caminadores;
     @FXML 
     private Canvas entrada;
+
+    //@FXML private ImageView MuerteFondo;
+
+    //@FXML private ImageView MuerteLetras;
+
 
     @FXML private ScrollPane scrollPane;
 
@@ -189,8 +193,8 @@ public class InicioController {
 			gc = sombra.getGraphicsContext2D();
 			Font Puntuacion=new Font("ROMANUS_regular",30);
             //gc.fillText("Recorriste: "+laberinto.getNiveles()+" niveles",300, 300);
-			//Image muerteFondo=new Image(new File("media/MuerteFondo.png").toURI().toString());
-			//Image muerteLetras=new Image(new File("media/MuerteLetras.png").toURI().toString());
+			Image muerteFondo=new Image(new File("media/MuerteFondo.png").toURI().toString());
+			Image muerteLetras=new Image(new File("media/MuerteLetras.png").toURI().toString());
 			gc.setFont(Puntuacion);
 			if (activo_musica) {
 //               MuerteFondo.setOpacity(100);

@@ -63,7 +63,7 @@ public class Caminadores extends Creatura {
 						new_y=rand.nextInt(ca_y-1,ca_y+1);
 						new_x=rand.nextInt(ca_x-1,ca_x+1);
 						val=matriz[new_x][new_y];
-					}catch (Exception _) {}
+					}catch (Exception e) {}
 			 }
 			if (val!=1) {
 				X=new_x;

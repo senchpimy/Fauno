@@ -53,27 +53,27 @@ public class ParsLabs {
     				int abajo=1;
     				int derecha=1;
     				int izquierda=1;
-        			int x=fila*pixel;
-        			int y=columna*pixel;
+        			int x=(fila)*pixel;
+        			int y=(columna)*pixel;
 
     				try {
     					izquierda = matriz[fila+1][columna];
-    				}catch(Exception _){
+    				}catch(Exception e){
     				}
 
     				try {
     					derecha = matriz[fila-1][columna];
-    				}catch(Exception _){
+    				}catch(Exception e){
     				}
 
     				try {
     					arriba = matriz[fila][columna-1];
-    				}catch(Exception _){
+    				}catch(Exception e){
     				}
 
     				try {
     					abajo = matriz[fila][columna+1];
-    				}catch(Exception _){
+    				}catch(Exception e){
     				}
 
     				if (arriba==1 && abajo==1 && derecha ==1 && izquierda==1) {
@@ -124,22 +124,22 @@ public class ParsLabs {
 
     				try {
     					izquierda = matriz[fila+1][columna];
-    				}catch(Exception _){
+    				}catch(Exception e){
     				}
 
     				try {
     					derecha = matriz[fila-1][columna];
-    				}catch(Exception _){
+    				}catch(Exception e){
     				}
 
     				try {
     					arriba = matriz[fila][columna-1];
-    				}catch(Exception _){
+    				}catch(Exception e){
     				}
 
     				try {
     					abajo = matriz[fila][columna+1];
-    				}catch(Exception _){
+    				}catch(Exception e){
     				}
 
     				if (arriba==1 && abajo==1 && derecha ==1 && izquierda==1) {

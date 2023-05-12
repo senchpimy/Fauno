@@ -1,35 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.Pane?>
+
+        <?import javafx.scene.canvas.Canvas?>
+        <?import javafx.scene.image.Image?>
+        <?import javafx.scene.image.ImageView?>
+        <?import javafx.scene.layout.Pane?>
 
 <Pane xmlns="http://javafx.com/javafx/19"
-	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="fes.aragon.controller.InicioController">
-	<Canvas fx:id="fondo" height="600.0" width="600.0" />
-	<Canvas fx:id="deambulantes" height="600.0" width="600.0" />
-	<Canvas fx:id="Caminadores" height="600.0" width="600.0" />
-	<Canvas fx:id="player_c" height="600.0" width="600.0" />
-	<Canvas fx:id="img" height="600.0" width="600.0" />
-	<!--<Canvas fx:id="sombra" height="600.0" width="600.0" />-->
-	<Canvas fx:id="entrada" height="600.0" width="600.0" />
-	<Canvas fx:id="entradaLetras" height="600.0" width="600.0" />
-	<Canvas fx:id="sombra" height="600.0" width="600.0" />
-	<!-- 
-	<ImageView fx:id="MuerteFondo" fitHeight="600.0"
-		fitWidth="600.0" opacity="0.0" pickOnBounds="true"
-		preserveRatio="true" visible="true">
-		<image>
-			<Image url="@../../../../media/MuerteFondo.png" />
-		</image>
-	</ImageView>
-	<ImageView fx:id="MuerteLetras" fitHeight="600.0"
-		fitWidth="600.0" opacity="0.0" pickOnBounds="true"
-		preserveRatio="true" visible="true">
-		<Image url="@../../../../media/MuerteLetras.png" />
-	</image>
-	</ImageView>
-	 -->
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="fes.aragon.controller.InicioController">
+    <Canvas fx:id="fondo" height="690.0" width="690.0" />
+    <Canvas fx:id="deambulantes" height="690.0" width="690.0" />
+    <Canvas fx:id="Caminadores" height="690.0" width="690.0" />
+    <Canvas fx:id="player_c" height="690.0" width="690.0" />
+    <Canvas fx:id="img" height="690.0" width="690.0" />
+    <Canvas fx:id="entrada" height="690.0" width="690.0" />
+    <Canvas fx:id="entradaLetras" height="690.0" width="690.0" />
+    <Canvas fx:id="sombra" height="690.0" width="690.0" />
 </Pane>
