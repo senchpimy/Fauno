@@ -16,7 +16,10 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.fxml.FXMLLoader;
 
-public class HelloApplication extends Application {
+
+import fes.aragon.controller.InicioController;
+import fes.aragon.modulo.*;
+public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         try {
