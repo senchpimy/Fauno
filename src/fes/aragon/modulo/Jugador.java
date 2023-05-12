@@ -1,44 +1,35 @@
 package fes.aragon.modulo;
-import java.io.FileInputStream;
 
-import javafx.fxml.FXML;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import java.io.File;
 
 public class Jugador extends Creatura{
-	private int energia=3000;
+	private int energia=2000;
 	private Boolean vivo=true;
-	private int pasos;
 	private GraphicsContext gc;
 	
 	public void setgc(GraphicsContext grc) {
 		gc=grc;
 	}
-	public void setPasos(int pixel) {
-		pasos=pixel;
-	}
 
-    private Image Frente=new Image(new File("media/frente.png").toURI().toString());
+    private final Image Frente=new Image(new File("media/frente.png").toURI().toString());
 
-    private Image Atras=new Image(new File("media/atras.png").toURI().toString());
+    private final Image Atras=new Image(new File("media/atras.png").toURI().toString());
 
-    private Image Izquierda=new Image(new File("media/izq.png").toURI().toString());
+    private final Image Izquierda=new Image(new File("media/izq.png").toURI().toString());
 
-    private Image Derecha=new Image(new File("media/der.png").toURI().toString());
+    private final Image Derecha=new Image(new File("media/der.png").toURI().toString());
+
+	private Image img;
 	
 	public Jugador() {
 		X=0;
-		Y=300;
+		Y=345;
 	}
-	public void Empezar(GraphicsContext gc,int pixel) {
-        gc.setFill(Color.GREEN);
-        gc.fillOval(X, Y, pixel, pixel);
-	}
-	
 	public int getX() {
 		return X;
 	}
@@ -47,15 +38,12 @@ public class Jugador extends Creatura{
 		return Y;
 	}
 
-	public Boolean Final() {
-		return (X>570 && Y==300? true:false);
-	}
-	
+	public Boolean Final() {return (X>660 && Y==345? true:false);}
+
+
 	public void Reset(GraphicsContext gc) {
 		X=0;
-		Y=300;
-        gc.setFill(Color.GREEN);
-        gc.fillOval(X, Y, pasos, pasos);
+		Y=345;
 	}
 	public void Alimentarse() {
 	energia+=100;	
@@ -70,9 +58,9 @@ public class Jugador extends Creatura{
 
 	public void Mover(Movimiento direccion) {
 		if (!vivo) return;
-        gc.clearRect(X, Y, pasos, pasos);
-        energia-=10;
-        Image img;
+        gc.clearRect(X, Y, pixel, pixel);
+		if (energia<=0)vivo=false;
+        energia-=20;
         if (direccion==Movimiento.ARRIBA) {
 		Arriba();
 		img=Atras;
@@ -86,7 +74,27 @@ public class Jugador extends Creatura{
 		Izquierda();
 		img=Izquierda;
         }
-        gc.drawImage(img,X, Y, pasos, pasos);
+		pintar();
         if (energia<=0)vivo=false;
+	}
+	public void ConsumirEnergia(){energia-=50;}
+	@Override
+	public void pintar() {
+		gc.drawImage(img,X, Y, pixel, pixel);
+	}
+
+	@Override
+	public void teclado(KeyEvent evento, boolean presiona) {
+
+	}
+
+	@Override
+	public void raton(KeyEvent evento) {
+
+	}
+
+	@Override
+	public void logicaCalculos() {
+
 	}
 }
