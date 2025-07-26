@@ -1,6 +1,7 @@
 # 🧭 Fauno
 
-![Badge](https://img.shields.io/badge/Estado-En%20Desarrollo-orange) ![Badge](https://img.shields.io/badge/Versi%C3%B3n-1.0.0-blue) ![Badge](https://img.shields.io/badge/JavaFX-%F0%9F%92%BB-green)
+ ![Badge](https://img.shields.io/badge/Versi%C3%B3n-1.0.0-blue) ![Badge](https://img.shields.io/badge/JavaFX-%F0%9F%92%BB-green)
+
 
 **Fauno** es un videojuego de exploración en laberintos desarrollado en Java utilizando **JavaFX**, donde el jugador debe sobrevivir, encontrar comida y evitar criaturas hostiles llamadas *Deambulantes* y *Caminadores*. A medida que avanzas de nivel, los escenarios cambian y aumentan en dificultad.
 
@@ -63,15 +64,9 @@ cd fauno
 
 ---
 
-## 📸 Capturas (sugerido)
-
-> *(Agrega aquí screenshots del juego en acción: pantalla de inicio, movimiento en el laberinto, pantalla de muerte, etc.)*
-
----
 
 ## 📝 Licencia
 
 Este proyecto está licenciado bajo la **MIT License**.
 ¡Eres libre de usarlo, modificarlo y compartirlo!
-![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 
